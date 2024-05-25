@@ -7,6 +7,8 @@ import {
   DeleteOutlined,
   LikeOutlined,
   LikeFilled,
+  ShareAltOutlined,
+  CommentOutlined,
 } from '@ant-design/icons';
 import { useState } from 'react';
 function DisplayPosts() {
@@ -55,7 +57,7 @@ function DisplayPosts() {
       {/* Post Body */}
       <div className='my-2'>
         <p className='m-0 p-0 py-2 border border-black'>post message</p>
-        <div className='icons-row flex justify-between px-2'>
+        <div className='icons-row flex justify-between items-center px-2 mt-3'>
           <span>
             {like && (
               <Avatar size={20} className='bg-blue-500' icon={<LikeFilled />} />
@@ -65,6 +67,39 @@ function DisplayPosts() {
             <span>1 Comment</span>
             <span>0 Share</span>
           </div>
+        </div>
+        {/* post footer */}
+        <div className='postFooter flex justify-between items-center border-y-2 mt-1 text-sm mb-3 px-2 py-1'>
+          <Button
+            className='flex items-center gap-1'
+            type='secondary'
+            onClick={() => {
+              alert('liked');
+            }}
+          >
+            {' '}
+            <Avatar size={20} icon={<LikeOutlined />} /> Liked
+          </Button>
+          <Button
+            className='flex items-center gap-1'
+            type='secondary'
+            onClick={() => {
+              alert('liked');
+            }}
+          >
+            {' '}
+            <Avatar size={20} icon={<CommentOutlined />} /> Commented
+          </Button>
+          <Button
+            className='flex items-center gap-1'
+            type='secondary'
+            onClick={() => {
+              alert('liked');
+            }}
+          >
+            {' '}
+            <Avatar size={20} icon={<ShareAltOutlined />} /> Shared
+          </Button>
         </div>
       </div>
     </div>
