@@ -7,6 +7,7 @@ function App() {
   return (
     <>
       <CreatePost />
+      <h2 className='text-center font-bold underline'>Your Posts </h2>
       <DisplayPosts />
     </>
   );
