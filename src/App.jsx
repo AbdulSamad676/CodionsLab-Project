@@ -1,9 +1,14 @@
 // import { useState } from 'react';
 import React from 'react';
+import CreatePost from './components/CreatePost';
+import DisplayPosts from './components/DisplayPosts';
 
 function App() {
   return (
-    <h1 className='text-3xl font-bold text-center underline'>Hello world!</h1>
+    <>
+      <CreatePost />
+      <DisplayPosts />
+    </>
   );
 }
 
