@@ -46,8 +46,8 @@ const postsSlice = createSlice({
       },
     },
     editPost(state, action) {
-      const { id, body } = action.payload;
-      const existingPost = state.posts.find((post) => post.id === id);
+      const { postId, body } = action.payload;
+      const existingPost = state.posts.find((post) => post.id === postId);
       if (existingPost) {
         existingPost.body = body;
       }
