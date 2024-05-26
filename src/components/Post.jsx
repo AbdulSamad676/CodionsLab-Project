@@ -146,7 +146,7 @@ function Post({ post }) {
                 value={commentBody}
                 onChange={(e) => setCommentBody(e.target.value)}
                 placeholder='write a comment'
-                className=' border-0 bg-gray-200 outline-none bg-transparent'
+                className=' border-0 bg-gray-200 outline-none focus:bg-transparent'
               />
               <span>emoji</span>
             </div>

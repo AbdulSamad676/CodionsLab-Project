@@ -52,20 +52,24 @@ function Comment({ comment, postId }) {
       {editingComment ? (
         <form
           onSubmit={handleEditComment}
-          className='w-full flex gap-2 border border-black rounded-sm p-2'
+          className='w-full flex items-center gap-2 border border-black rounded-sm p-2'
         >
           <div className='w-full flex bg-gray-200 px-3 items-center rounded-lg'>
             <Input
               type='text'
               value={editBody}
               onChange={(e) => setEditBody(e.target.value)}
-              className='border-0 bg-gray-200 outline-none bg-transparent'
+              className='border-0 bg-gray-200 outline-none focus:bg-transparent'
             />
             <span>emoji</span>
           </div>
 
-          <Button type='primary' htmlType='submit' className='mt-2'>
-            Save
+          <Button
+            type='primary'
+            htmlType='submit'
+            className='text-sm font-semibold'
+          >
+            Update
           </Button>
         </form>
       ) : (
