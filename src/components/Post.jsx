@@ -13,7 +13,12 @@ import {
 } from '@ant-design/icons';
 import { useState } from 'react';
 import { useDispatch } from 'react-redux';
-import { addComment, editPost } from '../store/slices/postsSlice';
+import {
+  addComment,
+  deletePost,
+  editPost,
+  likePost,
+} from '../store/slices/postsSlice';
 import Comment from './Comment';
 
 function Post({ post }) {
@@ -37,7 +42,7 @@ function Post({ post }) {
         <Button
           className='border-0 bg-red-600'
           onClick={() => {
-            alert('clicked');
+            dispatch(deletePost({ postId: post.id }));
           }}
         >
           <Avatar size={20} icon={<DeleteOutlined />} />
@@ -117,7 +122,7 @@ function Post({ post }) {
                 )}
               </span>
               <div className='flex gap-5 text-sm'>
-                <span>1 Comment</span>
+                <span>{post.no_of_comments} Comment</span>
                 <span>0 Share</span>
               </div>
             </div>
@@ -127,7 +132,7 @@ function Post({ post }) {
                 className='flex items-center gap-1'
                 type='secondary'
                 onClick={() => {
-                  alert('liked');
+                  dispatch(likePost({ postId: post.id }));
                 }}
               >
                 {' '}

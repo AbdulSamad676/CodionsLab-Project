@@ -10,15 +10,7 @@ const initialState = {
       likes: 1,
       dislikes: 0,
       comments: [],
-    },
-    {
-      id: nanoid(),
-      body: 'Hello CodionsLab!',
-      username: 'Sohail Arham',
-      created_at: new Date().toISOString(),
-      likes: 5,
-      dislikes: 0,
-      comments: [],
+      no_of_comments: 0,
     },
   ],
 };
@@ -31,19 +23,6 @@ const postsSlice = createSlice({
       reducer(state, action) {
         state.posts.push(action.payload);
       },
-      prepare(body) {
-        return {
-          payload: {
-            id: nanoid(),
-            body,
-            username: 'staticUser',
-            created_at: new Date().toISOString(),
-            comments: [],
-            likes: 0,
-            dislikes: 0,
-          },
-        };
-      },
     },
     editPost(state, action) {
       const { postId, body } = action.payload;
@@ -53,8 +32,8 @@ const postsSlice = createSlice({
       }
     },
     deletePost(state, action) {
-      const { id } = action.payload;
-      state.posts = state.posts.filter((post) => post.id !== id);
+      const { postId } = action.payload;
+      state.posts = state.posts.filter((post) => post.id !== postId);
     },
     addComment(state, action) {
       const { postId, commentBody } = action.payload;
@@ -67,6 +46,7 @@ const postsSlice = createSlice({
           commentBody: commentBody,
           created_at: new Date().toISOString(),
         });
+        post.no_of_comments += 1;
       }
     },
     editComment: (state, action) => {
@@ -89,20 +69,14 @@ const postsSlice = createSlice({
         post.comments = post.comments.filter(
           (comment) => comment.id !== commentId,
         );
+        post.no_of_comments -= 1;
       }
     },
     likePost(state, action) {
-      const { id } = action.payload;
-      const post = state.posts.find((post) => post.id === id);
+      const { postId } = action.payload;
+      const post = state.posts.find((post) => post.id === postId);
       if (post) {
         post.likes += 1;
-      }
-    },
-    dislikePost(state, action) {
-      const { id } = action.payload;
-      const post = state.posts.find((post) => post.id === id);
-      if (post) {
-        post.dislikes += 1;
       }
     },
   },
