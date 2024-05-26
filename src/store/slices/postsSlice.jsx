@@ -69,7 +69,7 @@ const postsSlice = createSlice({
         });
       }
     },
-    editComment(state, action) {
+    editComment: (state, action) => {
       const { postId, commentId, body } = action.payload;
       const post = state.posts.find((post) => post.id === postId);
       if (post) {
@@ -77,10 +77,11 @@ const postsSlice = createSlice({
           (comment) => comment.id === commentId,
         );
         if (comment) {
-          comment.body = body;
+          comment.commentBody = body;
         }
       }
     },
+
     deleteComment(state, action) {
       const { postId, commentId } = action.payload;
       const post = state.posts.find((post) => post.id === postId);
