@@ -1,5 +1,5 @@
 import React from 'react';
-
+import { deleteComment } from '../store/slices/postsSlice';
 import { Button, Input, Avatar, Menu, Dropdown } from 'antd';
 import {
   UserOutlined,
@@ -12,15 +12,17 @@ import {
   CommentOutlined,
   RightOutlined,
 } from '@ant-design/icons';
-
-function Comment({ comment }) {
+import { useDispatch } from 'react-redux';
+function Comment({ comment, postId }) {
+  //   console.log(postId);
+  const dispatch = useDispatch();
   const commentMenu = (
     <Menu>
       <Menu.Item key='1'>
         <Button
           className='border-0 bg-green-600'
           onClick={() => {
-            alert('clicked');
+            // dispatch(deleteComment({ postId, commentId: comment.id }));
           }}
         >
           <Avatar size={20} icon={<EditOutlined />} />
@@ -30,7 +32,7 @@ function Comment({ comment }) {
         <Button
           className='border-0 bg-red-600'
           onClick={() => {
-            alert('clicked');
+            dispatch(deleteComment({ postId, commentId: comment.id }));
           }}
         >
           <Avatar size={20} icon={<DeleteOutlined />} />

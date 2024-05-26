@@ -128,7 +128,9 @@ function Post({ post }) {
         {/* Single Comment */}
         <div>
           {post.comments?.map((comment) => {
-            return <Comment key={comment.id} comment={comment} />;
+            return (
+              <Comment key={comment.id} postId={post.id} comment={comment} />
+            );
           })}
         </div>
         {/* Single Comment End */}
