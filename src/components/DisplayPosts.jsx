@@ -9,12 +9,13 @@ import {
   LikeFilled,
   ShareAltOutlined,
   CommentOutlined,
+  RightOutlined,
 } from '@ant-design/icons';
 import { useState } from 'react';
 function DisplayPosts() {
   const [like, setLike] = useState(1);
 
-  const menu = (
+  const postMenu = (
     <Menu>
       <Menu.Item key='1'>
         <Button
@@ -38,6 +39,31 @@ function DisplayPosts() {
       </Menu.Item>
     </Menu>
   );
+  const commentMenu = (
+    <Menu>
+      <Menu.Item key='1'>
+        <Button
+          className='border-0 bg-green-600'
+          onClick={() => {
+            alert('clicked');
+          }}
+        >
+          <Avatar size={20} icon={<EditOutlined />} />
+        </Button>
+      </Menu.Item>
+      <Menu.Item key='2'>
+        <Button
+          className='border-0 bg-red-600'
+          onClick={() => {
+            alert('clicked');
+          }}
+        >
+          <Avatar size={20} icon={<DeleteOutlined />} />
+        </Button>
+      </Menu.Item>
+    </Menu>
+  );
+
   return (
     <div className='bg-white p-4 mb-6 rounded-lg shadow-md  w-3/4 mx-auto my-3 '>
       <div className='postHeader flex justify-between w-full'>
@@ -48,7 +74,7 @@ function DisplayPosts() {
             <p className='m-0 text-sm'>time</p>
           </div>
         </div>
-        <Dropdown overlay={menu} trigger={['click']}>
+        <Dropdown overlay={postMenu} trigger={['click']}>
           <Button type='secondary' className='p-0 outline-none'>
             <DownOutlined />
           </Button>
@@ -101,6 +127,54 @@ function DisplayPosts() {
             <Avatar size={20} icon={<ShareAltOutlined />} /> Shared
           </Button>
         </div>
+      </div>
+      {/* Comments Sections */}
+      <div className='commentSection w-fulle'>
+        {/* Single Comment */}
+        <div className='comment'>
+          <div className='commentHeader flex justify-between items-center gap-2 w-full'>
+            <Avatar size={35} icon={<UserOutlined />} />
+            <div className='userSection px-3 py-1 border-0 bg-gray-200 rounded-lg w-full flex justify-between items-center'>
+              <div className=' w-full'>
+                <p className=' m-0 text-sm'>UserName</p>
+                <p className='m-0 text-xs '>comment body</p>
+              </div>
+              <Dropdown overlay={commentMenu} trigger={['click']}>
+                <Button type='secondary' className='p-0 outline-none'>
+                  <DownOutlined />
+                </Button>
+              </Dropdown>
+            </div>
+          </div>
+          <span className='text-xs mx-10'>few minutes ago</span>
+        </div>
+        {/* Single Comment End */}
+
+        {/* Add Comment Start */}
+        <div className='flex items-center gap-2  p-4'>
+          <Avatar size={25} icon={<UserOutlined />} />
+
+          <div className='w-full flex bg-gray-200  px-3 items-center rounded-lg'>
+            <Input
+              type='text'
+              // value={inputValue}
+              // onChange={handleInputChange}
+              placeholder='write a comment'
+              className=' border-0 bg-gray-200 outline-none'
+            />
+            <span>emoji</span>
+          </div>
+
+          <Button className=' p-0 border-0 outline-none'>
+            {' '}
+            <Avatar
+              size={20}
+              className='bg-blue-500'
+              icon={<RightOutlined />}
+            />
+          </Button>
+        </div>
+        {/* Add Comment End */}
       </div>
     </div>
   );
