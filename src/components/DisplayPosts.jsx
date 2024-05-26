@@ -12,8 +12,11 @@ import {
   RightOutlined,
 } from '@ant-design/icons';
 import { useState } from 'react';
+import { useSelector } from 'react-redux';
 function DisplayPosts() {
   const [like, setLike] = useState(1);
+  const posts = useSelector((state) => state.posts.posts);
+  console.log('✅ posts    ', posts);
 
   const postMenu = (
     <Menu>
