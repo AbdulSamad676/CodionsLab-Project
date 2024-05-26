@@ -7,9 +7,18 @@ const initialState = {
       body: 'Hello World!',
       username: 'staticUser',
       created_at: new Date().toISOString(),
-      comments: [],
-      likes: 0,
+      likes: 1,
       dislikes: 0,
+      comments: [],
+    },
+    {
+      id: nanoid(),
+      body: 'Hello CodionsLab!',
+      username: 'Sohail Arham',
+      created_at: new Date().toISOString(),
+      likes: 5,
+      dislikes: 0,
+      comments: [],
     },
   ],
 };
@@ -48,12 +57,14 @@ const postsSlice = createSlice({
       state.posts = state.posts.filter((post) => post.id !== id);
     },
     addComment(state, action) {
-      const { postId, body } = action.payload;
+      const { postId, commentBody } = action.payload;
+      //  Find the post
       const post = state.posts.find((post) => post.id === postId);
       if (post) {
         post.comments.push({
+          commentedBy: 'Static User',
           id: nanoid(),
-          body,
+          commentBody: commentBody,
           created_at: new Date().toISOString(),
         });
       }
