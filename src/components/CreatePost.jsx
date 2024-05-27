@@ -45,15 +45,6 @@ function CreatePost() {
             Post
           </Button>
         </form>
-        {/* <Input
-          type='text'
-          value={inputValue}
-          onChange={handleInputChange}
-          placeholder="What's on your mind?"
-          className=' border-0 bg-gray-200'
-        />
-
-        <Button type='primary'>Post</Button> */}
       </div>
       <hr className=' my-3 w-11/12 mx-auto' />
       <div className='w-full px-3 flex justify-between  '>

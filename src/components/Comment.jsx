@@ -1,12 +1,16 @@
 import React from 'react';
 import { deleteComment, editComment } from '../store/slices/postsSlice';
 import { Button, Input, Avatar, Menu, Dropdown } from 'antd';
+
 import {
+  SmileOutlined,
   UserOutlined,
   DownOutlined,
   EditOutlined,
   DeleteOutlined,
 } from '@ant-design/icons';
+import Picker from '@emoji-mart/react';
+import data from '@emoji-mart/data';
 import { useDispatch } from 'react-redux';
 import { useState } from 'react';
 
@@ -14,6 +18,16 @@ function Comment({ comment, postId }) {
   const dispatch = useDispatch();
   const [editingComment, setEditingComment] = useState(false);
   const [editBody, setEditBody] = useState(comment.commentBody);
+  const [showEmojiPicker, setShowEmojiPicker] = useState(false);
+
+  const addEmoji = (emoji) => {
+    setEditBody((prev) => prev + emoji.native);
+    setShowEmojiPicker(false);
+  };
+
+  const handleEmojiPickerToggle = () => {
+    setShowEmojiPicker((prev) => !prev);
+  };
 
   function handleEditComment(e) {
     e.preventDefault();
@@ -61,7 +75,16 @@ function Comment({ comment, postId }) {
               onChange={(e) => setEditBody(e.target.value)}
               className='border-0 bg-gray-200 outline-none focus:bg-transparent'
             />
-            <span>emoji</span>
+            <Button
+              type='text'
+              icon={<SmileOutlined />}
+              onClick={handleEmojiPickerToggle}
+            />
+            {showEmojiPicker && (
+              <div className='emoji-picker'>
+                <Picker data={data} onEmojiSelect={addEmoji} />
+              </div>
+            )}
           </div>
 
           <Button

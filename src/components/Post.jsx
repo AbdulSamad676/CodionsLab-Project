@@ -1,6 +1,7 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Button, Input, Avatar, Menu, Dropdown } from 'antd';
 import {
+  SmileOutlined,
   UserOutlined,
   DownOutlined,
   EditOutlined,
@@ -11,7 +12,8 @@ import {
   CommentOutlined,
   RightOutlined,
 } from '@ant-design/icons';
-import { useState } from 'react';
+import Picker from '@emoji-mart/react';
+import data from '@emoji-mart/data';
 import { useDispatch } from 'react-redux';
 import {
   addComment,
@@ -26,6 +28,17 @@ function Post({ post }) {
   const [commentBody, setCommentBody] = useState('');
   const [editingPost, setEditingPost] = useState(false);
   const [postBody, setPostBody] = useState(post.body);
+  const [showEmojiPicker, setShowEmojiPicker] = useState(false);
+
+  const addEmoji = (emoji) => {
+    setCommentBody((prev) => prev + emoji.native);
+    setShowEmojiPicker(false);
+  };
+
+  const handleEmojiPickerToggle = () => {
+    setShowEmojiPicker((prev) => !prev);
+  };
+
   const postMenu = (
     <Menu>
       <Menu.Item key='1'>
@@ -50,6 +63,7 @@ function Post({ post }) {
       </Menu.Item>
     </Menu>
   );
+
   function handleEditPost(e) {
     e.preventDefault();
     const postId = post.id;
@@ -67,7 +81,7 @@ function Post({ post }) {
   };
 
   return (
-    <div className='bg-white p-4 mb-6 rounded-lg shadow-md  w-3/4 mx-auto my-3 '>
+    <div className='bg-white p-4 mb-6 rounded-lg shadow-md w-3/4 mx-auto my-3'>
       {editingPost ? (
         <form
           onSubmit={handleEditPost}
@@ -107,7 +121,6 @@ function Post({ post }) {
               </Button>
             </Dropdown>
           </div>
-          {/* Post Body */}
           <div className='my-2'>
             <p className='m-0 p-0 py-2 border border-black'>{post.body}</p>
             <div className='icons-row flex justify-between items-center px-2 mt-3'>
@@ -126,7 +139,6 @@ function Post({ post }) {
                 <span>0 Share</span>
               </div>
             </div>
-            {/* post footer */}
             <div className='postFooter box-border flex justify-between items-center border-y-2 mt-1 text-sm mb-3 px-2 py-1'>
               <Button
                 className='flex items-center gap-1'
@@ -135,7 +147,6 @@ function Post({ post }) {
                   dispatch(likePost({ postId: post.id }));
                 }}
               >
-                {' '}
                 <Avatar size={20} icon={<LikeOutlined />} /> Liked
               </Button>
               <Button
@@ -145,7 +156,6 @@ function Post({ post }) {
                   alert('liked');
                 }}
               >
-                {' '}
                 <Avatar size={20} icon={<CommentOutlined />} /> Commented
               </Button>
               <Button
@@ -155,7 +165,6 @@ function Post({ post }) {
                   alert('liked');
                 }}
               >
-                {' '}
                 <Avatar size={20} icon={<ShareAltOutlined />} /> Shared
               </Button>
             </div>
@@ -163,9 +172,7 @@ function Post({ post }) {
         </div>
       )}
 
-      {/* Comments Sections */}
       <div className='commentSection w-fulle'>
-        {/* Single Comment */}
         <div>
           {post.comments?.map((comment) => {
             return (
@@ -173,26 +180,31 @@ function Post({ post }) {
             );
           })}
         </div>
-        {/* Single Comment End */}
 
-        {/* Add Comment Start */}
-        {/* there will be a form here */}
-        <div className='flex items-center gap-2  p-4'>
+        <div className='flex items-center gap-2 p-4'>
           <Avatar size={25} icon={<UserOutlined />} />
-          <form onSubmit={onSubmit} className=' w-full flex gap-2'>
-            <div className='w-full flex bg-gray-200  px-3 items-center rounded-lg'>
+          <form onSubmit={onSubmit} className='w-full flex gap-2'>
+            <div className='w-full flex bg-gray-200 px-3 items-center rounded-lg'>
               <Input
                 type='text'
                 value={commentBody}
                 onChange={(e) => setCommentBody(e.target.value)}
                 placeholder='write a comment'
-                className=' border-0 bg-gray-200 outline-none focus:bg-transparent'
+                className='border-0 bg-gray-200 outline-none focus:bg-transparent'
               />
-              <span>emoji</span>
+              <Button
+                type='text'
+                icon={<SmileOutlined />}
+                onClick={handleEmojiPickerToggle}
+              />
+              {showEmojiPicker && (
+                <div className='emoji-picker'>
+                  <Picker data={data} onEmojiSelect={addEmoji} />
+                </div>
+              )}
             </div>
 
-            <Button className=' p-0 border-0 outline-none' htmlType='submit'>
-              {' '}
+            <Button className='p-0 border-0 outline-none' htmlType='submit'>
               <Avatar
                 size={20}
                 className='bg-blue-500'
@@ -201,8 +213,6 @@ function Post({ post }) {
             </Button>
           </form>
         </div>
-
-        {/* Add Comment End */}
       </div>
     </div>
   );
