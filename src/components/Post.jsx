@@ -38,7 +38,7 @@ function Post({ post }) {
   const handleEmojiPickerToggle = () => {
     setShowEmojiPicker((prev) => !prev);
   };
-
+  // post menu for edit and delete
   const postMenu = (
     <Menu>
       <Menu.Item key='1'>
@@ -81,11 +81,12 @@ function Post({ post }) {
   };
 
   return (
-    <div className='bg-white p-4 mb-6 rounded-lg shadow-md w-3/4 mx-auto my-3'>
+    <div className='bg-white p-4 mb-6 rounded-lg shadow-md w-full md:w-3/4 mx-auto my-3'>
       {editingPost ? (
+        // Edit Post form
         <form
           onSubmit={handleEditPost}
-          className='w-full flex items-center gap-2 border border-black rounded-sm p-2'
+          className='w-full flex items-center gap-2  rounded-sm p-2'
         >
           <div className='w-full flex bg-gray-200 px-3 items-center rounded-lg'>
             <Input
@@ -106,6 +107,7 @@ function Post({ post }) {
           </Button>
         </form>
       ) : (
+        // Display specific post to user
         <div>
           <div className='postHeader flex justify-between w-full'>
             <div className='userSection flex gap-2 items-center'>
@@ -122,7 +124,7 @@ function Post({ post }) {
             </Dropdown>
           </div>
           <div className='my-2'>
-            <p className='m-0 p-0 py-2 border border-black'>{post.body}</p>
+            <p className='m-0 p-0 py-2 '>{post.body}</p>
             <div className='icons-row flex justify-between items-center px-2 mt-3'>
               <span>
                 {post.likes}
@@ -171,7 +173,7 @@ function Post({ post }) {
           </div>
         </div>
       )}
-
+      {/* Display All comments of any post */}
       <div className='commentSection w-fulle'>
         <div>
           {post.comments?.map((comment) => {
@@ -180,8 +182,8 @@ function Post({ post }) {
             );
           })}
         </div>
-
-        <div className='flex items-center gap-2 p-4'>
+        {/* add new comment to post */}
+        <div className='flex items-center gap-2 py-4 md:p-4'>
           <Avatar size={25} icon={<UserOutlined />} />
           <form onSubmit={onSubmit} className='w-full flex gap-2'>
             <div className='w-full flex bg-gray-200 px-3 items-center rounded-lg'>

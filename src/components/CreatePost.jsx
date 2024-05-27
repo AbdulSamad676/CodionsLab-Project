@@ -20,7 +20,7 @@ function CreatePost() {
       username: 'staticUser',
       created_at: new Date().toISOString(),
       comments: [],
-      likes: 1,
+      likes: 0,
       dislikes: 0,
       no_of_comments: 0,
     };
@@ -28,7 +28,7 @@ function CreatePost() {
     setPostBody('');
   }
   return (
-    <div className='bg-white p-4 mb-6 rounded-lg shadow-md  w-3/4 mx-auto my-3 '>
+    <div className='bg-white p-4 mb-6 rounded-lg shadow-md w-full md:w-3/4 mx-auto my-3 '>
       <div className='flex items-center gap-2  p-4'>
         <Avatar size={35} icon={<UserOutlined />} />
         <form
@@ -46,7 +46,7 @@ function CreatePost() {
           </Button>
         </form>
       </div>
-      <hr className=' my-3 w-11/12 mx-auto' />
+      <hr className=' my-3 w-full md:w-11/12 mx-auto' />
       <div className='w-full px-3 flex justify-between  '>
         <p>Protected</p>
         <Button

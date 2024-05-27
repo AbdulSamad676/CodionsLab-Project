@@ -33,9 +33,10 @@ function Comment({ comment, postId }) {
     e.preventDefault();
     const commentId = comment.id;
     dispatch(editComment({ postId, commentId, body: editBody }));
-    setEditingComment(false); // Set editingComment to false after saving
+    setEditingComment(false);
   }
 
+  // Menu for Edit or delete comment
   const commentMenu = (
     <Menu>
       <Menu.Item key='1'>
@@ -64,6 +65,7 @@ function Comment({ comment, postId }) {
   return (
     <div className='comment my-2'>
       {editingComment ? (
+        // Edit Comment form
         <form
           onSubmit={handleEditComment}
           className='w-full flex items-center gap-2 border border-black rounded-sm p-2'
@@ -96,6 +98,7 @@ function Comment({ comment, postId }) {
           </Button>
         </form>
       ) : (
+        // Display Comment
         <div>
           <div className='commentHeader flex justify-between items-center gap-2 w-full'>
             <Avatar size={35} icon={<UserOutlined />} />
