@@ -14,6 +14,8 @@ function App() {
     auth.onAuthStateChanged((user) => {
       if (user) {
         setUserName(user.displayName);
+      } else {
+        setUserName('');
       }
       console.log('user in app', user);
     });
