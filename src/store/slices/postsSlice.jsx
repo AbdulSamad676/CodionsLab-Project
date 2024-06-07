@@ -1,4 +1,22 @@
 import { createSlice, nanoid } from '@reduxjs/toolkit';
+import { db } from '../../firebase';
+// import { createSlice, nanoid } from '@reduxjs/toolkit';
+import { getFirestore, collection, addDoc } from 'firebase/firestore';
+
+// checking from gpt:
+export const addPost = (postData) => async (dispatch) => {
+  console.log('✅ PostData in Slice', postData);
+
+  try {
+    // Add post to Firestore
+    const docRef = await addDoc(collection(db, 'posts'), postData);
+    // Dispatch the action with the payload
+    dispatch(addPostSuccess({ ...postData, id: docRef.id }));
+  } catch (error) {
+    console.error('Error adding post:', error);
+    // Handle error
+  }
+};
 
 const initialState = {
   posts: [
@@ -19,10 +37,13 @@ const postsSlice = createSlice({
   name: 'posts',
   initialState,
   reducers: {
-    addPost: {
-      reducer(state, action) {
-        state.posts.push(action.payload);
-      },
+    // addPost: {
+    //   reducer(state, action) {
+    //     state.posts.push(action.payload);
+    //   },
+    // },
+    addPostSuccess(state, action) {
+      state.posts.push(action.payload);
     },
     editPost(state, action) {
       const { postId, body } = action.payload;
@@ -83,7 +104,7 @@ const postsSlice = createSlice({
 });
 
 export const {
-  addPost,
+  addPostSuccess,
   editPost,
   deletePost,
   addComment,
